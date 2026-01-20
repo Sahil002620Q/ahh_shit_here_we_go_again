@@ -1,14 +1,24 @@
-num1 = input("enter first number : ")
+num1 =int(input("enter first number : "))
 print("first number is : ",num1)
 
-num2 = input("enter second number : ")
+num2 = int(input("enter second number : "))
 print("second number is : ",num2)
 
-#opt = input("enter operator i.e +,-,*,/ : ")
-#print("your operator is : ",opt)
+opt = input("enter operator i.e +,-,*,/ : ")
+print("your operator is : ",opt)
 
-if num1 > num2:
-    print(num1 +  "is greater than " + num2 )
+if opt == '*':
+    print("sum is " ,num1 * num2)
 
-else:
-    print(num2 + " is greater than " + num1 )
+elif opt == '+':
+    print("sum is " ,num1 + num2)
+
+elif opt == '-':
+    print("sum is " ,num1 - num2)
+
+elif opt == '/':
+    print("sum is " ,num1 / num2)
+
+else :
+    print("encountered an unexpected error  ")
+    print("kindly enter a valid operator")
