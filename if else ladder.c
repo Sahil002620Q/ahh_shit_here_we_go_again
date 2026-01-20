@@ -3,7 +3,6 @@ int main () {
      int x;
      printf("\nenter grade : \n");
      scanf("%d",&x);
-
      if(x<=30){
         printf("fail");
      }else if(x<=70){

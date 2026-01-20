@@ -7,6 +7,7 @@ int main () {
             p++;
 
         }
+        return 0;
 }
 
 //Looping with Pointers
