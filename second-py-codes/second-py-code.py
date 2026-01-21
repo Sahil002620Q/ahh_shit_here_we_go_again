@@ -20,3 +20,7 @@ print( "your name is" , name)
 
 enter = input()    #replaces int x scanf("%d",&x); printf("%d",x);
 print(enter)
+
+print(10+8)
+arr = [3,4,5,6,0]
+print(arr[0] + 6)
