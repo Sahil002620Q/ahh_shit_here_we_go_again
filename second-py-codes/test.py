@@ -1,5 +1,5 @@
-print('hello')
 
-num = int(input("enter a number :"))
-for i in range(num):
-    print(i)
+a = 2
+A = 'you can do it'
+print(a)
+print(A)
