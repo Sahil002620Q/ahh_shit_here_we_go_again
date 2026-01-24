@@ -53,3 +53,11 @@ x = '  dirb ip address    '
 print(x)
 print(x.strip())
 
+# replace string
+x = 'curl ifconfig.me'
+print(x.replace('ifconfig.me','ipinfo.sh'))
+
+# split string
+x = 'hex , is , one , digi , or alphabet '
+print(x.split(','))
+
