@@ -1,7 +1,8 @@
 x = 10
 y = 20
-'t' = x
+t = x
 x = y
-y = 't'
+y = t
 print(x)
-#concept not clear
+
+# similar to c concept but idk about pointer
