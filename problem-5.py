@@ -10,3 +10,4 @@ contents = os.listdir(path)
 print("Contents of directory:", path)
 for item in contents:
     print(item)
+#end of the code
