@@ -10,3 +10,5 @@ int main ()
     p += 2;
     printf("%d\n",*p);
 }
+
+//end of code
