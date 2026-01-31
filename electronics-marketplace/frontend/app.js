@@ -72,30 +72,36 @@ const useAuth = () => useContext(AuthContext);
 const Navbar = ({ setPage }) => {
     const { user, logout } = useAuth();
     return (
-        <nav className="bg-white shadow-sm border-b border-gray-200">
+        <nav className="glass-panel sticky top-0 z-50 shadow-sm border-b border-white/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex cursor-pointer items-center" onClick={() => setPage('home')}>
-                        <span className="text-xl font-bold text-primary">ElectroRecover</span>
+                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">
+                            ElectroRecover
+                        </span>
                     </div>
                     <div className="flex items-center space-x-4">
-                        <button onClick={() => setPage('home')} className="text-gray-600 hover:text-gray-900">Browse</button>
+                        <button onClick={() => setPage('home')} className="text-slate-600 hover:text-primary font-medium transition-colors">Browse</button>
                         {user ? (
                             <>
-                                <button onClick={() => setPage('create-listing')} className="bg-primary text-white px-4 py-2 rounded-md hover:bg-blue-600">Sell Item</button>
-                                <button onClick={() => setPage('dashboard')} className="text-gray-600 hover:text-gray-900">Dashboard</button>
+                                <button onClick={() => setPage('create-listing')} className="btn-animated bg-primary text-white px-5 py-2 rounded-full font-medium hover:bg-primary-dark shadow-lg shadow-primary/30">
+                                    + Sell Item
+                                </button>
+                                <button onClick={() => setPage('dashboard')} className="text-slate-600 hover:text-primary font-medium transition-colors">Dashboard</button>
                                 {user.role === 'admin' && (
-                                    <button onClick={() => setPage('admin')} className="text-purple-600 hover:text-purple-900 font-medium">Admin</button>
+                                    <button onClick={() => setPage('admin')} className="text-purple-600 hover:text-purple-800 font-bold">Admin</button>
                                 )}
-                                <div className="flex items-center space-x-2 border-l pl-4 ml-4">
-                                    <span className="text-sm font-medium">{user.name}</span>
-                                    <button onClick={logout} className="text-sm text-red-600 hover:text-red-800">Logout</button>
+                                <div className="flex items-center space-x-3 border-l pl-4 ml-4 border-slate-200">
+                                    <span className="text-sm font-medium text-slate-500">Hi, {user.name}</span>
+                                    <button onClick={logout} className="text-sm text-red-500 hover:text-red-700 font-medium">Logout</button>
                                 </div>
                             </>
                         ) : (
                             <>
-                                <button onClick={() => setPage('login')} className="text-gray-600 hover:text-gray-900">Login</button>
-                                <button onClick={() => setPage('register')} className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">Register</button>
+                                <button onClick={() => setPage('login')} className="text-slate-600 hover:text-primary font-medium transition-colors">Login</button>
+                                <button onClick={() => setPage('register')} className="btn-animated bg-slate-900 text-white px-5 py-2 rounded-full font-medium hover:bg-slate-800 shadow-lg">
+                                    Register
+                                </button>
                             </>
                         )}
                     </div>
@@ -107,44 +113,54 @@ const Navbar = ({ setPage }) => {
 
 const ListingCard = ({ listing, onRequest }) => {
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gray-200 flex items-center justify-center">
+        <div className="btn-animated bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl group">
+            <div className="h-48 bg-slate-100 flex items-center justify-center relative overflow-hidden">
                 {listing.photos && listing.photos.length > 0 ? (
-                    <img src={listing.photos[0]} alt={listing.title} className="h-full w-full object-cover" />
+                    <img src={listing.photos[0]} alt={listing.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 ) : (
-                    <span className="text-gray-400">No Image</span>
-                )}
-            </div>
-            <div className="p-4">
-                <div className="flex justify-between items-start">
-                    <div>
-                        <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 mb-2">
-                            {listing.category}
-                        </span>
-                        <h3 className="text-lg font-semibold text-gray-900">{listing.title}</h3>
-                        <p className="text-sm text-gray-500">{listing.brand} {listing.model}</p>
+                    <div className="text-slate-300 flex flex-col items-center">
+                        <span className="text-4xl mb-2">📷</span>
+                        <span className="text-sm font-medium">No Image</span>
                     </div>
-                    <span className="text-lg font-bold text-gray-900">${listing.price}</span>
-                </div>
-
-                <div className="mt-3 space-y-1">
-                    <p className="text-sm font-medium text-gray-700">Condition: <span className={listing.condition === 'broken' ? 'text-red-600' : 'text-green-600'}>{listing.condition}</span></p>
-                    <p className="text-sm text-gray-500 truncate">{listing.location}</p>
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-                    <span className={`text-xs px-2 py-1 rounded-full ${listing.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                )}
+                <div className="absolute top-3 right-3">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${listing.status === 'active' ? 'bg-green-500 text-white' : 'bg-slate-500 text-white'}`}>
                         {listing.status}
                     </span>
-                    {listing.status === 'active' && (
-                        <button
-                            onClick={() => onRequest(listing.id)}
-                            className="text-sm font-medium text-primary hover:text-blue-700"
-                        >
-                            Request to Buy →
-                        </button>
-                    )}
                 </div>
+            </div>
+            <div className="p-5">
+                <div className="flex justify-between items-start mb-2">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                        {listing.category}
+                    </span>
+                    <span className="text-xl font-bold text-slate-900">${listing.price}</span>
+                </div>
+
+                <h3 className="text-lg font-bold text-slate-800 mb-1 group-hover:text-primary transition-colors">{listing.title}</h3>
+                <p className="text-sm text-slate-500 mb-4">{listing.brand} • {listing.model}</p>
+
+                <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm">
+                        <span className="text-slate-400 w-20">Condition:</span>
+                        <span className={`font-medium ${listing.condition === 'broken' ? 'text-red-500' : 'text-green-500'}`}>
+                            {listing.condition.replace('_', ' ').toUpperCase()}
+                        </span>
+                    </div>
+                    <div className="flex items-center text-sm">
+                        <span className="text-slate-400 w-20">Location:</span>
+                        <span className="text-slate-600 truncate">{listing.location}</span>
+                    </div>
+                </div>
+
+                {listing.status === 'active' && (
+                    <button
+                        onClick={() => onRequest(listing.id)}
+                        className="w-full btn-animated py-2.5 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all"
+                    >
+                        Request to Buy
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -254,38 +270,38 @@ const LoginPage = ({ setPage }) => {
     };
 
     return (
-        <div className="min-h-[80vh] flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200 w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center">Login to your account</h2>
-                {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm">{error}</div>}
+        <div className="min-h-[80vh] flex items-center justify-center p-4">
+            <div className="glass-panel p-8 rounded-2xl shadow-xl w-full max-w-md animate-[float_6s_ease-in-out_infinite]">
+                <h2 className="text-3xl font-bold mb-6 text-center text-slate-800">Welcome Back</h2>
+                {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm border border-red-100">{error}</div>}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Email Address</label>
                         <input
                             type="email"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 transition-all"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Password</label>
                         <input
                             type="password"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3 transition-all"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-blue-600 font-medium">
+                    <button type="submit" className="w-full btn-animated bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark shadow-lg shadow-primary/30">
                         Sign In
                     </button>
                 </form>
-                <div className="mt-4 text-center text-sm">
-                    Don't have an account? <button onClick={() => setPage('register')} className="text-primary hover:underline">Register</button>
+                <div className="mt-6 text-center text-sm text-slate-500">
+                    New here? <button onClick={() => setPage('register')} className="text-primary font-bold hover:underline">Create an account</button>
                 </div>
             </div>
         </div>
@@ -294,7 +310,7 @@ const LoginPage = ({ setPage }) => {
 
 const RegisterPage = ({ setPage }) => {
     const { register } = useAuth();
-    const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'buyer', location: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'buyer', location: '', phone: '' });
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
@@ -308,69 +324,80 @@ const RegisterPage = ({ setPage }) => {
     };
 
     return (
-        <div className="min-h-[80vh] flex items-center justify-center py-12">
-            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-200 w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center">Create an account</h2>
-                {error && <div className="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm">{error}</div>}
+        <div className="min-h-[80vh] flex items-center justify-center py-12 p-4">
+            <div className="glass-panel p-8 rounded-2xl shadow-xl w-full max-w-md">
+                <h2 className="text-3xl font-bold mb-6 text-center text-slate-800">Join the Market</h2>
+                {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm border border-red-100">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Full Name</label>
                         <input
                             type="text"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
                             value={formData.name}
                             onChange={e => setFormData({ ...formData, name: e.target.value })}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Email</label>
                         <input
                             type="email"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
                             value={formData.email}
                             onChange={e => setFormData({ ...formData, email: e.target.value })}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Phone Number (for WhatsApp)</label>
+                        <input
+                            type="tel"
+                            required
+                            placeholder="+91 9876543210"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
+                            value={formData.phone}
+                            onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Password</label>
                         <input
                             type="password"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
                             value={formData.password}
                             onChange={e => setFormData({ ...formData, password: e.target.value })}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Role</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">I want to</label>
                         <select
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
                             value={formData.role}
                             onChange={e => setFormData({ ...formData, role: e.target.value })}
                         >
-                            <option value="buyer">Buyer</option>
-                            <option value="seller">Seller</option>
+                            <option value="buyer">Buy Parts & Devices</option>
+                            <option value="seller">Sell Broken Items</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">Location</label>
+                        <label className="block text-sm font-medium text-slate-600 mb-1">Location</label>
                         <input
                             type="text"
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+                            className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-3"
                             value={formData.location}
                             onChange={e => setFormData({ ...formData, location: e.target.value })}
                         />
                     </div>
-                    <button type="submit" className="w-full bg-primary text-white py-2 rounded-md hover:bg-blue-600 font-medium">
-                        Register
+                    <button type="submit" className="w-full btn-animated bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark shadow-lg shadow-primary/30 mt-2">
+                        Create Account
                     </button>
                 </form>
-                <div className="mt-4 text-center text-sm">
-                    Already have an account? <button onClick={() => setPage('login')} className="text-primary hover:underline">Login</button>
+                <div className="mt-6 text-center text-sm text-slate-500">
+                    Already a member? <button onClick={() => setPage('login')} className="text-primary font-bold hover:underline">Log in</button>
                 </div>
             </div>
         </div>
@@ -530,26 +557,59 @@ const DashboardPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Incoming Requests (As Seller) */}
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800">Incoming Buy Requests</h2>
+                <div className="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 className="text-xl font-bold mb-4 text-slate-800 flex items-center">
+                        <span className="mr-2">📥</span> Incoming Buy Requests
+                    </h2>
                     {incomingRequests.length === 0 ? (
-                        <p className="text-gray-500">No incoming requests.</p>
+                        <p className="text-slate-500 italic">No incoming requests yet.</p>
                     ) : (
                         <div className="space-y-4">
                             {incomingRequests.map(req => (
-                                <div key={req.id} className="border p-4 rounded-md">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className={`px-2 py-1 rounded-full text-xs ${req.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>
+                                <div key={req.id} className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-lg">
+                                                {req.buyer_name ? req.buyer_name[0].toUpperCase() : 'B'}
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-slate-800">{req.buyer_name}</p>
+                                                <p className="text-xs text-slate-500">{req.buyer_location}</p>
+                                            </div>
+                                        </div>
+                                        <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${req.status === 'pending' ? 'bg-amber-100 text-amber-700' : req.status === 'accepted' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                             {req.status}
                                         </span>
-                                        <span className="text-sm text-gray-500">{new Date(req.created_at).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="font-medium">Request for Listing #{req.listing_id}</p>
+
+                                    <div className="bg-slate-50 p-3 rounded-lg text-sm text-slate-600 mb-4">
+                                        <p>Wants to buy your listing <span className="font-semibold text-primary">#{req.listing_id}</span></p>
+                                        <p className="text-xs text-slate-400 mt-1">{new Date(req.created_at).toLocaleDateString()}</p>
+                                    </div>
+
+                                    {/* Contact Actions */}
+                                    <div className="flex flex-col space-y-2">
+                                        {req.buyer_phone && (
+                                            <a href={`https://wa.me/${req.buyer_phone.replace(/\D/g, '')}`} target="_blank" className="flex items-center justify-center space-x-2 w-full bg-[#25D366] text-white py-2 rounded-lg hover:bg-[#128C7E] font-medium transition-colors">
+                                                <span>💬</span> <span>Chat on WhatsApp</span>
+                                            </a>
+                                        )}
+                                        <div className="flex space-x-2">
+                                            <a href={`mailto:${req.buyer_email}`} className="flex-1 flex items-center justify-center space-x-1 bg-slate-100 text-slate-700 py-2 rounded-lg hover:bg-slate-200 text-sm font-medium transition-colors">
+                                                <span>✉️</span> <span>Email</span>
+                                            </a>
+                                            {req.buyer_phone && (
+                                                <a href={`tel:${req.buyer_phone}`} className="flex-1 flex items-center justify-center space-x-1 bg-slate-100 text-slate-700 py-2 rounded-lg hover:bg-slate-200 text-sm font-medium transition-colors">
+                                                    <span>📞</span> <span>Call</span>
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
 
                                     {req.status === 'pending' && (
-                                        <div className="mt-3 flex space-x-2">
-                                            <button onClick={() => handleUpdateStatus(req.id, 'accept')} className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Accept</button>
-                                            <button onClick={() => handleUpdateStatus(req.id, 'reject')} className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">Reject</button>
+                                        <div className="mt-4 pt-3 border-t border-slate-100 flex space-x-3">
+                                            <button onClick={() => handleUpdateStatus(req.id, 'accept')} className="flex-1 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 font-medium text-sm">Accept</button>
+                                            <button onClick={() => handleUpdateStatus(req.id, 'reject')} className="flex-1 bg-red-100 text-red-600 py-2 rounded-lg hover:bg-red-200 font-medium text-sm">Reject</button>
                                         </div>
                                     )}
                                 </div>
@@ -559,20 +619,23 @@ const DashboardPage = () => {
                 </div>
 
                 {/* Sent Requests (As Buyer) */}
-                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-800">My Sent Requests</h2>
+                <div className="glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 className="text-xl font-bold mb-4 text-slate-800 flex items-center">
+                        <span className="mr-2">📤</span> My Sent Requests
+                    </h2>
                     {sentRequests.length === 0 ? (
-                        <p className="text-gray-500">You haven't made any requests.</p>
+                        <p className="text-slate-500 italic">You haven't made any requests.</p>
                     ) : (
                         <div className="space-y-4">
                             {sentRequests.map(req => (
-                                <div key={req.id} className="border p-4 rounded-md">
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-medium">Listing #{req.listing_id}</span>
-                                        <span className={`px-2 py-1 rounded-full text-xs ${req.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : req.status === 'accepted' ? 'bg-green-100 text-green-800' : 'bg-gray-100'}`}>
-                                            {req.status}
-                                        </span>
+                                <div key={req.id} className="bg-white p-4 rounded-xl border border-slate-100 flex justify-between items-center hover:shadow-sm">
+                                    <div>
+                                        <span className="font-bold text-slate-700">Listing #{req.listing_id}</span>
+                                        <p className="text-xs text-slate-400">{new Date(req.created_at).toLocaleDateString()}</p>
                                     </div>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${req.status === 'pending' ? 'bg-amber-100 text-amber-700' : req.status === 'accepted' ? 'bg-green-100 text-green-700' : 'bg-slate-100'}`}>
+                                        {req.status}
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -581,8 +644,8 @@ const DashboardPage = () => {
             </div>
 
             {/* My Listings */}
-            <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h2 className="text-xl font-semibold mb-4 text-gray-800">My Listings</h2>
+            <div className="mt-8 glass-panel p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h2 className="text-xl font-bold mb-6 text-slate-800">📦 My Listings</h2>
                 {myListings.length === 0 ? (
                     <p className="text-gray-500">No listings active.</p>
                 ) : (

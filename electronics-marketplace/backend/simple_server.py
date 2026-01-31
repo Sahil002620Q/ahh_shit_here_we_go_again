@@ -25,7 +25,8 @@ def init_db():
             email TEXT UNIQUE NOT NULL,
             password_hash TEXT NOT NULL,
             role TEXT DEFAULT 'buyer',
-            location TEXT
+            location TEXT,
+            phone TEXT
         );
         CREATE TABLE IF NOT EXISTS listings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -55,13 +56,19 @@ def init_db():
         );
     ''')
     
+    # Migration: Add phone column if it doesn't exist (for existing DBs)
+    try:
+        c.execute("ALTER TABLE users ADD COLUMN phone TEXT")
+    except sqlite3.OperationalError:
+        pass # Column likely exists
+
     # Check if admin exists
     c.execute("SELECT id FROM users WHERE role='admin'")
     if not c.fetchone():
         print("Creating default admin user...")
         pwd_hash = hashlib.sha256("admin123".encode()).hexdigest()
-        c.execute("INSERT INTO users (name, email, password_hash, role, location) VALUES (?, ?, ?, ?, ?)",
-                  ("Administrator", "admin@example.com", pwd_hash, "admin", "HQ"))
+        c.execute("INSERT INTO users (name, email, password_hash, role, location, phone) VALUES (?, ?, ?, ?, ?, ?)",
+                  ("Administrator", "admin@example.com", pwd_hash, "admin", "HQ", "0000000000"))
         print("Default admin created: admin@example.com / admin123")
     
     conn.commit()
@@ -148,8 +155,13 @@ class MarketplaceHandler(http.server.SimpleHTTPRequestHandler):
             conn = sqlite3.connect(DB_FILE)
             conn.row_factory = sqlite3.Row
             c = conn.cursor()
-            # Join with listings to get info? For now just raw requests
-            c.execute("SELECT * FROM buy_requests WHERE seller_id=?", (user['id'],))
+            # Join with users to get buyer info
+            c.execute('''
+                SELECT br.*, u.name as buyer_name, u.email as buyer_email, u.phone as buyer_phone, u.location as buyer_location
+                FROM buy_requests br
+                JOIN users u ON br.buyer_id = u.id
+                WHERE br.seller_id=?
+            ''', (user['id'],))
             requests = [dict(row) for row in c.fetchall()]
             conn.close()
             self.send_json(requests)
@@ -196,8 +208,8 @@ class MarketplaceHandler(http.server.SimpleHTTPRequestHandler):
                 c = conn.cursor()
                 pwd_hash = hashlib.sha256(body['password'].encode()).hexdigest()
                 try:
-                    c.execute("INSERT INTO users (name, email, password_hash, role, location) VALUES (?, ?, ?, ?, ?)",
-                              (body['name'], body['email'], pwd_hash, body['role'], body['location']))
+                    c.execute("INSERT INTO users (name, email, password_hash, role, location, phone) VALUES (?, ?, ?, ?, ?, ?)",
+                              (body['name'], body['email'], pwd_hash, body['role'], body['location'], body.get('phone', '')))
                     conn.commit()
                     user_id = c.lastrowid
                     conn.close()
