@@ -7,3 +7,4 @@ int main() {
     return 0;
 }
 //daily streak 
+//for better performance 
