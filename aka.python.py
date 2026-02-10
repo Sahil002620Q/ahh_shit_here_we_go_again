@@ -2,4 +2,4 @@ print('\nhello')
 int x = 9:
 if (x > 3)
     print('hii')
-#daily commit ,gor streak maintainance 
+#daily commit ,for streak maintainance 
