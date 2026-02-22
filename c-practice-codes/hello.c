@@ -6,3 +6,5 @@ int main() {
     printf("=========== OUTPUT END ===========\n");
     return 0;
 }
+//daily streak 
+//for better performance in place 

@@ -8,3 +8,4 @@ int main () {
     }
     printf("BOOM!\n");
 }
+//timebom using c logic
