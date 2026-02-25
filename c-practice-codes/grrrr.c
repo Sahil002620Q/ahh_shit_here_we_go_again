@@ -9,4 +9,4 @@ int main () {
 
  
 }
-//using func
+//using function 
