@@ -1,6 +1,7 @@
 import time
-list = ['hello',
+lists = ['hello',
         ,'myself sahil']
+list = input().space()
 for line in list:
   for ch in line:
     print(ch,end='',flush=True)
