@@ -5,3 +5,4 @@ if (x > 3)
 import os
 os.stream('ls')
 #daily commit for strength 
+#cry coz i missed streak after long time
