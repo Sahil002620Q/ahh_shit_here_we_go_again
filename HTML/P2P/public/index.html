@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2P Token Chat</title>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #setup, #chat-area {
+        background: #2d2d2d;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        text-align: center;
+        width: 350px;
+    }
+
+    #activeTocken {
+        color: #91169c;
+    }
+
+
+
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.7s;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    button:hover { background: #0056b3; }
+
+    input {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #444;
+        background: #3d3d3d;
+        color: white;
+    }
+
+    #messages {
+        background: #1e1e1e;
+        border: 1px solid #444;
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: left;
+        border-radius: 8px;
+    }
+
+    .system-msg { color: #888; font-style: italic; font-size: 0.9em; }
+    
+    #activeToken {
+        color: #00ff88;
+        font-weight: bold;
+        letter-spacing: 2px;
+        
+    }
+</style>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="setup">
+        <input type="text" id="userName" placeholder="Your Name" style="margin-bottom: 20px; border-color: #00ff88;">
+        <button onclick="hostRoom()">HOST (Create Token)</button>
+        <button onclick="hostRoom()">HOST (Create Token)</button>
+        <br><br>
+        <input type="text" id="joinToken" placeholder="Enter 4-digit Token">
+        <button onclick="joinRoom()">JOIN</button>
+    </div>
+
+    <div id="chat-area" style="display:none;">
+        
+        <h3 onclick="copyToken()" style="cursor:pointer;" title="Click to copy">
+            Room: <span id="activeToken"></span> 📋
+        </h3>
+        <div id="messages" style="border:1px solid #ccc; height:200px; overflow-y:scroll;"></div>
+        <input type="text" id="msgInput">
+        <button onclick="send()">Send</button>
+    </div>
+
+    <script>
+        const socket = io();
+        let currentToken = "";
+
+        function hostRoom() {
+            socket.emit('host-request');
+        }
+
+        function joinRoom() {
+            const token = document.getElementById('joinToken').value;
+            socket.emit('join-request', token);
+        }
+
+        socket.on('token-generated', (token) => {
+            startChat(token);
+        });
+
+        socket.on('join-success', (token) => {
+            startChat(token);
+        });
+
+        function startChat(token) {
+            currentToken = token;
+            document.getElementById('setup').style.display = 'none';
+            document.getElementById('chat-area').style.display = 'block';
+            document.getElementById('activeToken').innerText = token;
+        }
+
+        function send() {
+            const msg = document.getElementById('msgInput').value;
+            const name = document.getElementById('userName').value || "Anonymous"; // Fallback name
+            socket.emit('send-chat', { 
+                token: currentToken, 
+                message: `${name}: ${msg}` 
+            });
+            document.getElementById('msgInput').value = '';
+        }
+        
+
+        socket.on('chat-message', (msg) => {
+            const div = document.createElement('div');
+            div.innerText = msg;
+            document.getElementById('messages').appendChild(div);
+        });
+
+        socket.on('error-msg', (err) => alert(err));
+        function copyToken() {
+           const token = document.getElementById('activeToken').innerText;
+           navigator.clipboard.writeText(token);
+           alert("Token copied to clipboard: " + token);
+        }
+    </script>
+</body>
+</html>
