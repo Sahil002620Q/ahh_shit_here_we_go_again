@@ -433,4 +433,4 @@ print(txt)
 txt = 'first line\nsecond line'
 print(txt)
 
-
+# first python codes from october to november
