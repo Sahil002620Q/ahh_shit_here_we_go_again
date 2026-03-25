@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple API Test</title>
+</head>
+<body>
+
+    <h2>API Data:</h2>
+    <button onclick="getData()">Fetch Data</button>
+    <pre id="output"></pre>
+
+    <script>
+        function getData() {
+            fetch("https://streaming.bitquery.io/graphql")   // https://streaming.bitquery.io/graphql
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("output").innerText =
+                        JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+
+</body>
+</html>
