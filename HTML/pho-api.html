@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Call</title>
+    <script>
+        async  function Api_call(){
+        const value = document.getElementById("number").value;
+        const API_KEY = "Ntrpf5ZVgWlqgOFVJbtopOk86fDGpHGb";
+        const url = `https://api.apilayer.com/number_verification/validate?number=${value}`; //use`` not ''
+        const response = await fetch(url,{      //from here
+            method : "GET",
+            headers : {
+                "apikey":API_KEY
+            }
+        });                                     //to here idk
+
+        const data = await response.json();
+        document.getElementById("data").innerText=JSON.stringify(data,null,2);      //bit here to , bracket part
+        document.getElementById("data").innerHTML=
+        ` <h2>Scan result </h1>
+          <h3>Number : ${data.number} </h1>
+          <h3>Location : ${data.location} </h1>
+          <h3>Line type : ${data.line_type} </h1>  
+          <h3>Region : ${data.country_name} </h1> 
+          <h3>Country code : ${data.country_code} </h1> 
+          <h3>Carrier : ${data.carrier} </h1>   
+            `;
+        console.log(data)
+        }
+    </script>
+
+<style>
+.scan-btn{
+    background-color: rgb(144, 98, 187,0.5);
+    
+}
+
+.scan-btn :hover{
+    background-color: aqua;
+    
+}
+
+.i-box {
+    
+
+}
+
+</style>
+
+
+
+
+</head>
+<body>
+    <input class="i-box" id="number" placeholder="Enter your number">
+    <button class="scan-btn" onclick="Api_call()">scan</button>
+    <div id="data"></div>
+    
+</body>
+</html>
