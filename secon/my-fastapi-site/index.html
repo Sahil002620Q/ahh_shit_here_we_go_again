@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+        input, button { padding: 10px; margin: 5px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+        .completed { text-decoration: line-through; opacity: 0.6; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .delete { background: #dc3545 !important; }
+    </style>
+</head>
+<body>
+    <h1>🗒️ My Todo App</h1>
+    
+    <input type="text" id="taskInput" placeholder="Enter new task...">
+    <button onclick="addTodo()">Add Todo</button>
+    
+    <ul id="todoList"></ul>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:8000';
+
+        async function loadTodos() {
+            const response = await fetch(`${API_URL}/todos`);
+            const todos = await response.json();
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.className = todo.completed ? 'completed' : '';
+                li.innerHTML = `
+                    <span>${todo.task}</span>
+                    <button class="delete" onclick="deleteTodo(${todo.id})">Delete</button>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        async function addTodo() {
+            const task = document.getElementById('taskInput').value;
+            if (!task) return;
+            
+            await fetch(`${API_URL}/todos`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({task})
+            });
+            
+            document.getElementById('taskInput').value = '';
+            loadTodos();
+        }
+
+        async function deleteTodo(id) {
+            await fetch(`${API_URL}/todos/${id}`, {method: 'DELETE'});
+            loadTodos();
+        }
+
+        // Load todos on page load
+        loadTodos();
+    </script>
+</body>
+</html>
