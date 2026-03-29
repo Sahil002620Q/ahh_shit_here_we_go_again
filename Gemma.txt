@@ -6,7 +6,15 @@ for auth - not selected yet
 railway - bor backend
 vercel - for frontend 
 html,css,js - for frontend 
+ngrok - for testing 
+git/GitHub - for version control 
 
+make server using llm
+
+app specific features 
+have url detection for spam and phishing 
+website venurabiliy scan
+strict review on user portfolio and real suggestion and bad points
 
 tree
 .env
@@ -17,3 +25,5 @@ a.css
 a.js
 readme.md
 .gitignore
+requirements.txt
+l
