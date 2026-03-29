@@ -2,4 +2,7 @@ gemma an uncensored model,
 hugging face - the model source
 lm - for model usage
 supabase - dbms 
-fir auth - not selected yet 
+for auth - not selected yet 
+railway - bor backend
+vercel - for frontend 
+html,css,js - for frontend 
