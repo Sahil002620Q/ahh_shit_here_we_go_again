@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Call</title>
+    <script>
+        async  function Api_call(){
+        const value = document.getElementById("number").value;
+        const API_KEY = ""; //add api key here
+        const url = `https://api.apilayer.com/ip_to_location/${value}`; //use`` not ''
+        
+            document.getElementById("data").innerHTML = "Loading...";                                        
+
+        const response = await fetch(url,{      //from here
+            method : "GET",
+            headers : {
+                "apikey":API_KEY
+            }
+        });                                     //to here idk
+
+        const data = await response.json();
+        document.getElementById("data").innerText=JSON.stringify(data,null,2);      //bit here to , bracket part
+        document.getElementById("data").innerHTML=
+        ` <h2>Scan result </h1>
+          <h3>ipv4: ${data.ipv4} </h1>
+          <h3>Location : ${data.location.capital} </h1>
+          <h3>Latitude : ${data.latitude} </h1>  
+          <h3>longitude : ${data.longitude} </h1> 
+          <h3>city : ${data.city} </h1> 
+          <h3>region name : ${data.region_name} </h1>   
+          <h3>flag : ${data.flag} </h1> 
+          <h3>isp : ${data.connection.isp} </h1> 
+          <h3>ip : ${data.ip} </h1> 
+          <h3>timezone : ${data.timezones} </h1> 
+            `;
+            
+        console.log(data)
+        }
+    </script>
+
+<style>
+.scan-btn{
+    background-color: rgb(144, 98, 187,0.5);
+    
+}
+
+.scan-btn:hover{
+    background-color: aqua;
+    
+}
+
+.i-box{
+    align-self: center;
+    margin-left: 350px;
+    margin-top: 144px;
+}
+
+.result::-webkit-scrollbar{
+    display: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.result{
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 2px solid #a92929;            /*border thickness need to be min 1 to make the border visible*/
+  border-radius: 25px;
+  height: 450px;
+  overflow-y: scroll;
+  box-shadow: #1d2290;
+  
+  
+    
+}
+
+.scan-btn {
+  /* background-color: antiquewhite;   */
+  align-items: center;
+  justify-content: center;
+}
+
+.indicator{
+    border:2px solid rgb(26, 18, 241);
+    height: 55px;
+    width: 55px;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+    margin-left: 120px;
+    margin-top: 385px;
+    border-radius: 38px;
+}
+
+</style>
+
+
+
+
+</head>
+<body>
+    <input class="i-box" id="number" placeholder="Enter your number">
+    <button class="scan-btn" onclick="Api_call()"  >scan</button>
+    <div class="result" id="data"  >   <!--class for multi eleand id for single-->
+    <!-- work here -->
+        <div class="indicator"><img href="google..png"></div>  
+        
+    </div>
+    
+</body>
+</html>     
