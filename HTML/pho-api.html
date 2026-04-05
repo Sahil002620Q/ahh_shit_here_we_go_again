@@ -7,8 +7,9 @@
     <script>
         async  function Api_call(){
         const value = document.getElementById("number").value;
-        const API_KEY = "Ntrpf5ZVgWlqgOFVJbtopOk86fDGpHGb";
-        const url = `https://api.apilayer.com/number_verification/validate?number=${value}`; //use`` not ''
+        const API_KEY = "";
+           const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`; 
+        // const url = `https://api.apilayer.com/number_verification/validate?number=${value}`; //use`` not ''
         const response = await fetch(url,{      //from here
             method : "GET",
             headers : {
@@ -42,9 +43,21 @@
     
 }
 
-.i-box {
+.result{
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;            /*border thickness need to be min 1 to make the border visible*/
+  border-radius: 25px;
+  height: 400px;
+  
     
+}
 
+.scan-btn {
+  /* background-color: antiquewhite;   */
+  align-items: center;
+  justify-content: center;
 }
 
 </style>
@@ -55,8 +68,8 @@
 </head>
 <body>
     <input class="i-box" id="number" placeholder="Enter your number">
-    <button class="scan-btn" onclick="Api_call()">scan</button>
-    <div id="data"></div>
+    <button class="scan-btn" onclick="Api_call()"  >scan</button>
+    <div class="result" id="data"  ></div>
     
 </body>
 </html>
