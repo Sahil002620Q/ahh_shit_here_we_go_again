@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Weather App</title>
+    <style>
+        /* --- General Reset & Setup --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            /* Fallback color changed to red so you instantly know if CSS is broken */
+            background-color: red; 
+            overflow: hidden;
+        }
+
+        /* --- Main App Container (Now Full Screen) --- */
+        .weather-app {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            transition: background 0.8s ease-in-out;
+        }
+
+        /* Weather Background States */
+        .weather-app.sunny {
+            background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
+        }
+        .weather-app.cloudy {
+            background: linear-gradient(to bottom, #757f9a 0%, #d7dde8 100%);
+        }
+        .weather-app.rainy {
+            background: linear-gradient(to bottom, #2c3e50 0%, #3498db 100%);
+        }
+
+        /* --- Rain Animation Elements --- */
+        .rain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+            z-index: 1;
+        }
+        .weather-app.rainy .rain-container {
+            display: block;
+        }
+        .drop {
+            position: absolute;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.8));
+            width: 2px;
+            height: 20px;
+            bottom: 100%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* --- The "Opaque" Divs (Glassmorphism) --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .header h2 { font-weight: 400; font-size: 2rem; }
+        .header p { font-size: 1rem; opacity: 0.8; }
+
+        .temp-display h1 { font-size: 5rem; font-weight: 300; margin: 10px 0; }
+        .temp-display p { font-size: 1.5rem; text-transform: capitalize; }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glass-card span { display: block; font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px;}
+        .glass-card strong { font-size: 1.4rem; }
+
+        /* --- Controls --- */
+        .controls {
+            position: relative;
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 20;
+        }
+        .controls button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .controls button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="weather-app rainy" id="app">
+        
+        <div class="rain-container" id="rain"></div>
+
+        <div class="glass-panel header">
+            <h2>Jalandhar, Punjab</h2>
+            <p>Sunday, March 15</p>
+        </div>
+
+        <div class="glass-panel temp-display">
+            <h1 id="temp">18°C</h1>
+            <p id="condition">Heavy Rain</p>
+        </div>
+
+        <div class="details-grid">
+            <div class="glass-card">
+                <span>Humidity</span>
+                <strong>85%</strong>
+            </div>
+            <div class="glass-card">
+                <span>Wind</span>
+                <strong>12 km/h</strong>
+            </div>
+            <div class="glass-card">
+                <span>Visibility</span>
+                <strong>4 km</strong>
+            </div>
+            <div class="glass-card">
+                <span>UV Index</span>
+                <strong>Low</strong>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="changeWeather('sunny', '28°C', 'Clear Sky')">Sunny</button>
+            <button onclick="changeWeather('cloudy', '22°C', 'Overcast')">Cloudy</button>
+            <button onclick="changeWeather('rainy', '18°C', 'Heavy Rain')">Rainy</button>
+        </div>
+
+    </div>
+
+    <script>
+        console.log("Weather App JS is running!"); // Quick check for the console
+
+        const rainContainer = document.getElementById('rain');
+        const numberOfDrops = 80;
+
+        for (let i = 0; i < numberOfDrops; i++) {
+            let drop = document.createElement('div');
+            drop.classList.add('drop');
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            drop.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+            rainContainer.appendChild(drop);
+        }
+
+        function changeWeather(weatherClass, temp, condition) {
+            const app = document.getElementById('app');
+            const tempDisplay = document.getElementById('temp');
+            const conditionDisplay = document.getElementById('condition');
+
+            app.classList.remove('sunny', 'cloudy', 'rainy');
+            app.classList.add(weatherClass);
+            
+            tempDisplay.innerText = temp;
+            conditionDisplay.innerText = condition;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+/* =========================================
+   1. RESET & VARIABLES
+   ========================================= */
+/* Removes default browser margins so your design is consistent */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables make it easy to change your whole color scheme at once */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --text-color: #333;
+    --bg-color: #f8fafc;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+}
+
+/* =========================================
+   2. NAVBAR (Using Flexbox)
+   ========================================= */
+.navbar {
+    display: flex; /* Aligns items horizontally */
+    justify-content: space-between; /* Pushes logo left, links right */
+    align-items: center; /* Centers items vertically */
+    background-color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+}
+
+.nav-links {
+    list-style: none; /* Removes bullet points */
+    display: flex;
+    gap: 1.5rem; /* Space between links */
+}
+
+.nav-links a {
+    text-decoration: none; /* Removes underline */
+    color: var(--text-color);
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* =========================================
+   3. HERO SECTION
+   ========================================= */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   4. BUTTONS
+   ========================================= */
+.btn-primary, .btn-submit {
+    background-color: var(--white);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover, .btn-submit:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: var(--white);
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background-color: var(--secondary-color);
+}
+
+/* =========================================
+   5. LAYOUT & CARDS (Using CSS Grid)
+   ========================================= */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.bg-light {
+    background-color: #e2e8f0;
+}
+
+/* CSS Grid is amazing for creating responsive card layouts quickly */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Automatically adjusts columns */
+    gap: 20px;
+    max-width: 1000px;
+    margin: 40px auto 0;
+}
+
+.card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Makes the card "lift" when hovered */
+}
+
+/* =========================================
+   6. FORMS
+   ========================================= */
+.demo-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e293b;
+    color: var(--white);
+}
+
+/* =========================================
+   8. RESPONSIVENESS (Media Queries)
+   ========================================= */
+/* This ensures the site looks good on phones */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+}

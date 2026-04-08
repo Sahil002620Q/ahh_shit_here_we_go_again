@@ -1,0 +1,22 @@
+{
+    "sourceFile": "cindex.html",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1773835154166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1773835160015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,69 @@\n-a\n\\ No newline at end of file\n+<!DOCTYPE html>\r\n+<html lang=\"en\">\r\n+<head>\r\n+    <meta charset=\"UTF-8\">\r\n+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n+    <title>Hackathon Project Starter</title>\r\n+    <link rel=\"stylesheet\" href=\"style.css\">\r\n+</head>\r\n+<body>\r\n+\r\n+    <nav class=\"navbar\">\r\n+        <div class=\"logo\">MyHackApp</div>\r\n+        <ul class=\"nav-links\">\r\n+            <li><a href=\"#home\">Home</a></li>\r\n+            <li><a href=\"#features\">Features</a></li>\r\n+            <li><a href=\"#contact\">Contact</a></li>\r\n+        </ul>\r\n+    </nav>\r\n+\r\n+    <header id=\"home\" class=\"hero\">\r\n+        <h1>Welcome to the Future</h1>\r\n+        <p>A clean, responsive frontend to showcase your hackathon idea.</p>\r\n+        <button class=\"btn-primary\">Get Started</button>\r\n+    </header>\r\n+\r\n+    <main>\r\n+        <section id=\"features\" class=\"section\">\r\n+            <h2>Core Features</h2>\r\n+            \r\n+            <div class=\"card-container\">\r\n+                <div class=\"card\">\r\n+                    <h3>Fast Processing</h3>\r\n+                    <p>Description of what your app does goes right here.</p>\r\n+                </div>\r\n+                <div class=\"card\">\r\n+                    <h3>Smart AI Integration</h3>\r\n+                    <p>Perfect spot to highlight your machine learning models.</p>\r\n+                </div>\r\n+                <div class=\"card\">\r\n+                    <h3>Secure Data</h3>\r\n+                    <p>Explaining the backend or networking security of your app.</p>\r\n+                </div>\r\n+            </div>\r\n+        </section>\r\n+\r\n+        <section id=\"contact\" class=\"section bg-light\">\r\n+            <h2>Try It Out</h2>\r\n+            <form action=\"#\" class=\"demo-form\">\r\n+                <div class=\"input-group\">\r\n+                    <label for=\"name\">Your Name</label>\r\n+                    <input type=\"text\" id=\"name\" placeholder=\"Enter your name\" required>\r\n+                </div>\r\n+                \r\n+                <div class=\"input-group\">\r\n+                    <label for=\"data\">Input Data</label>\r\n+                    <textarea id=\"data\" rows=\"4\" placeholder=\"Enter data to process...\"></textarea>\r\n+                </div>\r\n+\r\n+                <button type=\"submit\" class=\"btn-submit\">Run Program</button>\r\n+            </form>\r\n+        </section>\r\n+    </main>\r\n+\r\n+    <footer>\r\n+        <p>&copy; 2026 Hackathon Team. All rights reserved.</p>\r\n+    </footer>\r\n+\r\n+</body>\r\n+</html>\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1773835154166,
+            "name": "Commit-0",
+            "content": "a"
+        }
+    ]
+}
