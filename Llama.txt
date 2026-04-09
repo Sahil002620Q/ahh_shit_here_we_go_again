@@ -1,0 +1,3 @@
+future ideas 
+build own ai voice assistance using offline 
+llm
