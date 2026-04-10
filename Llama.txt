@@ -3,3 +3,4 @@ build own ai voice assistance using offline
 llm
 
 what i learnt from first hackathon 
+prepare your working project before hackathon 
