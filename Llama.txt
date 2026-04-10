@@ -5,3 +5,4 @@ llm
 what i learnt from first hackathon 
 prepare your working project before hackathon 
 make working prompt and test it before hackathon 
+ppt decides everything 
