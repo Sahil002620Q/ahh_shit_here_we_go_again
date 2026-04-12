@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pass-gen.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1773400879002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1773400879002,
+            "name": "Commit-0",
+            "content": "# main.py\r\nfrom fastapi import FastAPI\r\nfrom fastapi.staticfiles import StaticFiles\r\nfrom fastapi.templating import Jinja2Templates\r\n\r\napp = FastAPI()\r\napp.mount(\"/static\", StaticFiles(directory=\"static\"), name=\"static\")\r\ntemplates = Jinja2Templates(directory=\"templates\")\r\n\r\n@app.get(\"/\")\r\ndef home():\r\n    return {\"message\": \"Hello World!\"}\r\n\r\n@app.get(\"/html\")\r\ndef get_html(request: Request):\r\n    return templates.TemplateResponse(\"index.html\", {\"request\": request})\r\n\r\n# Run: uvicorn main:app --reload"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Home - FastAPI Site{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to My FastAPI Website!</h1>
+    <p class="hero-subtitle">Built with Python backend + beautiful HTML/CSS</p>
+    <div class="hero-buttons">
+        <a href="/about" class="btn btn-primary">Learn More</a>
+        <a href="#" class="btn btn-secondary">Get Started</a>
+    </div>
+</div>
+
+<section class="features">
+    <div class="container">
+        <h2>Why FastAPI?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>⚡ Super Fast</h3>
+                <p>Fastest Python framework</p>
+            </div>
+            <div class="feature-card">
+                <h3>📖 Auto Docs</h3>
+                <p>Beautiful API documentation</p>
+            </div>
+            <div class="feature-card">
+                <h3>🐍 Python Native</h3>
+                <p>No new languages to learn</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
