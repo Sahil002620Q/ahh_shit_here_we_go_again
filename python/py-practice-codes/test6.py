@@ -25,8 +25,8 @@ print(info)
 
 
 # A modifier is included by adding a colon : followed by a legal formatting type, like .2f which means fixed point number with 2 decimals:
-x = 3
-deci = f"decimal number is {x:.2f}"
+x = 3.143456765731678
+deci = f"decimal number is {x:.7f}"
 print(deci)
 
 # Perform a math operation in the placeholder, and return the result:
