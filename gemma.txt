@@ -1,0 +1,12 @@
+project idea //never ever use git push -f origin main (lost my future projects , secreats and learnings)
+
+project 1
+clone chat gpt and add features like direct download your own llm and it have an ai mode which will help me \
+to choose llm like user tell his requirements like coding , painting , stocks etc and will give 
+ram storage and device specs and ai will tell suitable llm for you 
+
+
+project 2
+personalized ai 
+have a configs which make ai personalized user will fill input and choos from field and ai will behave 
+and match full vibe like user
