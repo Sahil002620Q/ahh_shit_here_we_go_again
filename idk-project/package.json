@@ -1,0 +1,23 @@
+{
+  "name": "college-lost-found-app",
+  "version": "1.0.0",
+  "description": "College Lost and Found Application",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["lost-and-found", "college", "typescript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0",
+    "fast-check": "^3.15.0"
+  }
+}

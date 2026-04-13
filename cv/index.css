@@ -81,7 +81,7 @@ html {
 
 /* --- Interactive Hover Effect --- */
 .btn:hover {
-    background-color: rgb(144, 29, 173);
+    background-color: rgb(144, 29, 173,0.5);
     color: #333;
     transform: translateY(-5px);
     /* Lifts the button slightly */

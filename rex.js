@@ -53,4 +53,3 @@
       change: calculate(expression: "round(($diff / Price_Ohlc_Open), 3) * 100")
     }
   }
-}
