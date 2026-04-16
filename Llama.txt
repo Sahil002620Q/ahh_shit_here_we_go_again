@@ -1,0 +1,22 @@
+future ideas 
+build own ai voice assistance using offline 
+llm
+
+what i learnt from first hackathon 
+prepare your working project before hackathon 
+make working prompt and test it before hackathon 
+ppt decides everything 
+team balance matters
+next publish offline ai on app store
+user can download llm from there directly 
+
+
+project idea , make an offline ai extention which will recognize sceen and give live outpul like android by holding lower menu line
+learn reac tand neon and the language ehich is for both android and ios also rn app is in demand annd single page web is in demand 
+so learn those rather than making multi page webs
+
+work on stared repo and make first contibution on OnionSite
+try ai browser and try to do some operations
+
+next project 
+use youtube revanced app and make same app for pc so that anyone can use free youtube premium features for free
