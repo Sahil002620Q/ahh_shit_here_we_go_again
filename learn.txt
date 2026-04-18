@@ -1,0 +1,1 @@
+learned that keep html filename as index.html otherwise i will face and 404 error meaning the deployed site is looking for index.html ie on my repo . assume client tap on link then domain will come to server and pick index.html if the name is something.html then it will throw 404 mean file not found
