@@ -1,3 +1,488 @@
 I want to make an app and website for collage suggest me what i can add in it , currently I'm thinking to add main interface and multiple features like cafeteria where user can see price of all food item with price availability and comment on food overview and can rate it too. It would have direct link in for of button, when i tap it will open other college websites like exam form fill website and other college websites, it will have one best feature which is lost found it will not in main interface ie not on home page but somewhere as if someone lost something he will open app go to lost found then ther under lost he can add item which is lost and give tags or properties like colour length or something identical and founder will fill the details of the item he found then he can chat with him too, it must require a login and for thatwe will use college id like we use college roll number and their unique password, then can use their password and id for login hence everyone will be identical but one twist their name will not be visible to everyone in starting we will keep random visible name and later we will decide to display original name or not on the basis of app usage also there will be notice board where there will be notice board too where notice like exam mst etc will be displayed and main focus on this is ui as if ui is not good then no one will get intrest in this app later we will intigrate more things like library control where librarian will be assigned dmin page for that libray and he can see who issuied a book and when with time and roll number and there will be a filter applying which he can see whose book return is pending and one more filter which will display that who have not returned book in 15 days also we will later add class management system like we filled roll numbers , we will use it to identify class and assume class 1 have 10 student with number 11 to 20 then when they will login their class will be fetched automatically and teachers can fill timely attendance there too later test marks mst marks etc can also be added there we can also push holiday and emergency notification, contest or other participation related things , it will focus on both students and teachers so that no one feel that independence is fading due to this , main motive is that students can have benifits like cafeteria , get information like holiday new events details etc any features must not distroys it's indipendent and main focus is that like what students really like and can not do in real world like they can not ask everyone that how that particular food taste to them and this app will make their life easy as it will be easy to holiday notification etc . This is my idea nof refine this idea and tell me about ui structure that where what would be and keep in mind that here ui is everything if ui is not impressive then no one will like this and also in this app we will add something like ngl so that the people will come to my app rather than going to instagram ngl so we will provide something better where students will feel more indipendent and can ask questions fearlessly but keep everything clean and proffessional and dont use emojies and also add setting button there make theme option availabe and there add theme switch on which when we click we can change theme and add animation when i click on switch
 -----------------------------------------
 you made campus core demo , using same theme and everything make a simmilar working demo of admin page for same site you know know what componets are need to be added in admin panel , also in admin panel there must be full control take it like it is not demo and i will use that file directly and in admin panel add too much things which i really need like i can enable and disable chat and i can remove someone's comment or chat in anonymous chat or i can enable or disable anonymous chat temporarily or i can also set block time there i can fill hour minutes to block the chat features also add more features like i can generate notifications regarding holidays , mst , or other notices , i can update notice and can set time limit of all notice and i have full notice history and every type of history of each id and rest add by yourself also you just have to make everything like campuscore demo like everything must have demo too and must be working also wvery capsule , button must be working no generate it
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------# CampusCore Admin Panel - Production Build Prompt
+
+## Overview
+Build a production-grade, fully-functional admin dashboard for CampusCore, a comprehensive campus management app. The admin panel should provide complete control over all student-facing features with real-time management capabilities, detailed analytics, and extensive history logging.
+
+**Design Reference**: Match the CampusCore demo aesthetic - frosted glass iOS-style design, smooth animations, dark/light mode support, minimal UI with clean glass aesthetics, and polished micro-interactions.
+
+---
+
+## Core Features Required
+
+### 1. **Cafeteria Management**
+- **Menu Management**
+  - Add new menu items with: name, description, price, category (breakfast, lunch, dinner, snacks)
+  - Edit existing menu items (name, description, price, availability status)
+  - Delete menu items with confirmation modal
+  - Set item availability (available/unavailable toggle)
+  - Schedule menu items for specific days/dates
+  - Bulk upload menu via CSV/JSON
+  - View all menu items in a sortable, filterable table
+  - See which items are most ordered (analytics)
+  - Price history tracking
+
+- **Daily Schedule**
+  - Set breakfast, lunch, dinner timings
+  - Manage special meal days
+  - View upcoming week's menu overview
+  - Historical menu records
+
+---
+
+### 2. **Notification & Announcement System**
+- **Push Notifications**
+  - Create notifications with: title, description, category (notice, urgent, event, holiday)
+  - Schedule notifications (immediate or scheduled for specific date/time)
+  - Target audience selection (all students, specific batch, specific department)
+  - Set notification expiry time
+  - Rich text editor for notifications
+  - Add images/attachments to notifications
+  - Track notification status (sent, pending, failed, viewed count)
+  - Resend failed notifications
+  - View notification delivery analytics
+
+- **Notice Board Management**
+  - Create/edit/delete notices
+  - Set notice visibility (public, admin-only, specific groups)
+  - Pin important notices to top
+  - Set notice expiry date/time
+  - Add attachments (PDF, images, documents)
+  - Full edit history of each notice
+  - View read statistics per notice
+  - Search and filter notices by date, category, keyword
+
+- **Holiday & Event Management**
+  - Add holiday dates with description
+  - Mark as national/college/departmental holiday
+  - Set holiday notifications (auto-send announcements)
+  - View holiday calendar
+  - Edit/delete holidays
+
+---
+
+### 3. **Anonymous Chat Management**
+- **Chat Control Features**
+  - Enable/disable anonymous chat globally
+  - Temporarily block chat for specific duration (set hours:minutes)
+  - View block history with reasons
+  - Set block countdown timer (show when chat will be enabled)
+  - Auto-resume chat after set time
+
+- **Comment/Chat Moderation**
+  - View all anonymous chat messages in real-time
+  - Search messages by keyword
+  - Delete inappropriate comments with reason
+  - Flag message as spam/abusive
+  - Ban users from anonymous chat (set duration)
+  - View deleted message history
+  - Mass delete messages by date range
+  - See message statistics (total, today, this week)
+
+- **User Blocking**
+  - Block specific users from anonymous chat
+  - Set block duration (temporary or permanent)
+  - View list of blocked users
+  - Unblock users
+  - View block reason history
+  - See blocked user activity logs
+
+---
+
+### 4. **Lost & Found Management**
+- **Item Management**
+  - Create lost/found item posts with: title, description, category, location, date
+  - Upload images of items
+  - Edit post details
+  - Mark as "resolved/found" or "resolved/returned"
+  - Delete posts with confirmation
+  - View all items in grid/list view
+
+- **Analytics**
+  - Most commonly lost items
+  - Most recovered items
+  - Locations with most lost items
+  - Active vs resolved items count
+
+---
+
+### 5. **Notice Board (General)**
+- **Post Management**
+  - Create new board posts
+  - Edit/delete posts
+  - Pin important posts
+  - Set expiry dates
+  - Add rich media (images, videos, documents)
+  - View post statistics (views, engagement)
+
+---
+
+### 6. **Quick Links Management**
+- Add/edit/remove quick college links
+- Organize links by category (academic, support, resources)
+- Set link priority/order
+- Track link click statistics
+
+---
+
+### 7. **System Analytics & History**
+- **Dashboard Overview**
+  - Total users/students
+  - Active users today/week/month
+  - Most used features
+  - System health status
+  - Notifications sent (today, week, month)
+  - Chat activity (messages, active users)
+
+- **Detailed History Logs**
+  - Complete action history (all admin actions with timestamp)
+  - User activity logs (login, feature usage)
+  - Chat message archive (deleted and active)
+  - Notice edit history (view all versions)
+  - Menu update history
+  - Login attempts (failed/successful)
+  - Export history as PDF/CSV
+
+- **Per-ID History**
+  - Student activity tracking (by ID)
+  - Chat participation history (anonymous - anonymous user ID)
+  - Notice interaction history (viewed, not viewed)
+  - Feature access logs
+
+---
+
+## UI/UX Requirements
+
+### **Design Aesthetic** (Match CampusCore Demo)
+- Frosted glass iOS-style cards with subtle shadows
+- Smooth fade, slide, and stagger animations
+- Dark theme as default with light mode toggle
+- Minimal, clean UI with generous whitespace
+- Rounded corners (16px+ for cards)
+- Subtle gradient overlays on cards
+- Smooth transitions between tabs/sections (300-500ms)
+- Loading states with skeleton screens
+- Toast notifications for actions (success, error, warning)
+- Modal confirmations for destructive actions
+
+### **Layout Structure**
+```
+Sidebar Navigation:
+├── Dashboard (Overview & Analytics)
+├── Cafeteria Menu
+├── Notifications & Announcements
+│   ├── Push Notifications
+│   ├── Notice Board
+│   └── Holidays
+├── Chat Moderation
+│   ├── Chat Control
+│   ├── Message Moderation
+│   └── User Blocking
+├── Lost & Found
+├── Quick Links
+└── System Logs & History
+```
+
+### **Key UI Elements**
+- **Cards**: Frosted glass effect, smooth shadows, hover lift effect
+- **Buttons**: Minimal design, smooth hover/active states, icon + text combinations
+- **Inputs**: Clean text fields with floating labels, date/time pickers
+- **Tables**: Sortable columns, filterable rows, pagination, row actions (edit, delete)
+- **Modals**: Full-screen or centered, backdrop blur, smooth open/close animations
+- **Toggles**: iOS-style switches with smooth animation
+- **Timeline**: For history logs, showing chronological events
+- **Badges**: For status indicators (active, blocked, pending, etc.)
+- **Charts**: For analytics (bar charts, line charts, pie charts)
+
+### **Interactive Elements** (All Must Be Fully Functional)
+- Every button must have click handlers
+- Every toggle must switch states
+- Every form must submit and validate
+- Every table must sort, filter, and paginate
+- Every modal must open/close smoothly
+- Every delete action must show confirmation
+- Every input must accept and store values
+- Real-time updates where applicable
+
+---
+
+## Data Structure & Mock Data
+
+### **Admin Account**
+```javascript
+{
+  id: "admin001",
+  name: "Campus Administrator",
+  email: "admin@campus.edu",
+  role: "super_admin",
+  permissions: ["all"],
+  lastLogin: "2024-04-22T14:30:00Z"
+}
+```
+
+### **Menu Item**
+```javascript
+{
+  id: "menu_001",
+  name: "Paneer Tikka Masala",
+  description: "Creamy tomato-based curry",
+  price: 120,
+  category: "lunch",
+  available: true,
+  scheduledDates: ["2024-04-23", "2024-04-24"],
+  image: "url",
+  createdAt: "2024-01-15T10:00:00Z",
+  updatedAt: "2024-04-22T09:30:00Z"
+}
+```
+
+### **Notification**
+```javascript
+{
+  id: "notif_001",
+  title: "Holiday Announcement",
+  description: "College closed on 26th April",
+  category: "holiday",
+  targetAudience: "all_students",
+  scheduledTime: "2024-04-23T09:00:00Z",
+  status: "scheduled",
+  expiryTime: "2024-04-26T23:59:59Z",
+  sentCount: 1250,
+  viewedCount: 890,
+  createdBy: "admin001",
+  createdAt: "2024-04-22T15:00:00Z"
+}
+```
+
+### **Chat Message**
+```javascript
+{
+  id: "chat_001",
+  anonymousUserId: "anon_user_123",
+  message: "Anyone going to the fest?",
+  timestamp: "2024-04-22T14:25:00Z",
+  status: "active", // or "deleted"
+  deletedBy: "admin001",
+  deleteReason: "spam",
+  liked: 45,
+  replies: 12
+}
+```
+
+### **Blocked User**
+```javascript
+{
+  id: "block_001",
+  anonymousUserId: "anon_user_456",
+  blockedAt: "2024-04-22T10:00:00Z",
+  blockDuration: "temporary",
+  blockUntil: "2024-04-23T10:00:00Z",
+  reason: "abusive language",
+  blockedBy: "admin001"
+}
+```
+
+### **Notice**
+```javascript
+{
+  id: "notice_001",
+  title: "Examination Schedule Released",
+  content: "Final exams start from 5th May...",
+  category: "academic",
+  visibility: "public",
+  pinned: true,
+  expiryDate: "2024-05-10T23:59:59Z",
+  attachments: ["exam_schedule.pdf"],
+  viewCount: 2340,
+  createdAt: "2024-04-20T11:00:00Z",
+  updatedAt: "2024-04-22T14:00:00Z",
+  editHistory: [
+    {
+      version: 1,
+      timestamp: "2024-04-20T11:00:00Z",
+      changes: "Initial post"
+    },
+    {
+      version: 2,
+      timestamp: "2024-04-22T14:00:00Z",
+      changes: "Updated exam dates"
+    }
+  ]
+}
+```
+
+### **Lost & Found Item**
+```javascript
+{
+  id: "item_001",
+  type: "lost", // or "found"
+  title: "Blue Sony Headphones",
+  description: "Lost near library",
+  category: "electronics",
+  location: "Library entrance",
+  lostDate: "2024-04-20",
+  images: ["url1", "url2"],
+  status: "active", // or "resolved"
+  resolution: "returned",
+  createdAt: "2024-04-21T09:00:00Z"
+}
+```
+
+---
+
+## Technology Stack
+- **Framework**: React (preferred) or vanilla HTML/CSS/JS
+- **Styling**: Tailwind CSS + custom CSS for glass effects
+- **State Management**: React hooks (useState, useReducer) or Context API
+- **Storage**: Browser localStorage for demo (in production would be backend API)
+- **Charts**: Recharts or Chart.js for analytics
+- **Icons**: Lucide React or similar
+- **Animations**: CSS transitions + optional Framer Motion
+
+---
+
+## Functional Requirements
+
+### **Working Features** (NON-NEGOTIABLE)
+1. ✅ Add/edit/delete menu items - fully functional
+2. ✅ Create and schedule notifications - with time picker
+3. ✅ Manage notices with edit history - full version control
+4. ✅ Enable/disable/temporarily block chat - with countdown
+5. ✅ Delete/flag chat messages - with reason
+6. ✅ Block/unblock users - with duration settings
+7. ✅ Add/remove quick links - real-time UI update
+8. ✅ View comprehensive history logs - searchable, filterable
+9. ✅ Export data - CSV/PDF export for logs
+10. ✅ Real-time statistics - live update on actions
+
+### **Data Persistence**
+- Use localStorage to persist all data during session
+- Pre-populate with demo data on first load
+- Save all actions to history log automatically
+- Simulate API calls with realistic delays (200-500ms)
+
+### **Validations**
+- Form validation (required fields, email format, date/time validation)
+- Confirmation modals for destructive actions
+- Error handling with user-friendly messages
+- Success notifications after actions
+
+---
+
+## Design Details
+
+### **Color Palette** (Dark Theme - Adjustable for Light Mode)
+- **Background**: #0f0f1e (deep dark)
+- **Surface**: #1a1a2e (card background)
+- **Primary**: #00d4ff (cyan accent)
+- **Accent**: #ff6b6b (red for destructive actions)
+- **Success**: #51cf66 (green)
+- **Warning**: #ffd43b (yellow)
+- **Text**: #e0e0e0 (light text)
+- **Muted**: #8b8b9a (secondary text)
+
+### **Typography**
+- **Display Font**: "Space Grotesk" or "Outfit" (for headers, titles)
+- **Body Font**: "Inter" or "Segoe UI" (for content)
+- **Mono Font**: "Monaco" or "Fira Code" (for timestamps, IDs)
+
+### **Spacing & Dimensions**
+- Base unit: 8px
+- Card padding: 24px
+- Section gap: 32px
+- Border radius: 16px (cards), 8px (buttons), 12px (inputs)
+- Sidebar width: 280px
+- Main content: full width with max-width constraint
+
+### **Animations**
+- Page transitions: fade-in (300ms)
+- Card hover: slight lift + shadow increase
+- Modal open: scale (0.9 → 1) + fade-in (200ms)
+- Button click: scale (0.95) + color shift
+- Form submission: loading spinner, then success toast
+- List item delete: slide-out (300ms) + fade-out
+
+---
+
+## Deliverables
+
+### **Single React Component/HTML File**
+- Production-ready code (can be deployed directly)
+- Zero external dependencies (except React, Tailwind, chart library)
+- Mobile-responsive design
+- Accessible (proper ARIA labels, semantic HTML)
+- Performance optimized (lazy loading where needed)
+
+### **Features Included in Code**
+- All data management functions
+- All UI interactions working
+- All validations in place
+- Mock data pre-loaded
+- localStorage integration
+- Dark/light mode toggle
+- Real-time timestamps
+- Complete history tracking
+
+---
+
+## Testing Checklist
+
+Before delivery, verify:
+- [ ] All add/edit/delete operations work
+- [ ] Notifications schedule and display correctly
+- [ ] Chat can be enabled/disabled
+- [ ] Block timer counts down in real-time
+- [ ] User blocking prevents chat access
+- [ ] Message deletion removes from chat feed
+- [ ] History logs capture all actions
+- [ ] Forms validate correctly
+- [ ] Modals open/close smoothly
+- [ ] Dark/light mode toggle works
+- [ ] Tables sort and filter
+- [ ] Export functionality works
+- [ ] Data persists on page refresh
+- [ ] No console errors
+- [ ] Responsive on mobile/tablet
+- [ ] All animations smooth (60fps)
+
+---
+
+## Notes for Developer
+
+1. **Use localStorage** to simulate backend API - this makes it feel real while being fully functional offline
+2. **Implement realistic delays** (200-500ms) on data operations to simulate API calls
+3. **Every interaction should have feedback** - toast notifications, loading states, success confirmations
+4. **History logging is critical** - automatically log every admin action with timestamp
+5. **Make it beautiful** - this is the first thing college admins will see, make them impressed
+6. **Think about edge cases** - empty states, loading states, error states, success states
+7. **Mobile first** doesn't mean small-only, design for desktop but ensure it works on mobile too
+8. **Use the CampusCore aesthetic** as reference - frosted glass, smooth animations, minimal design
+
+---
+
+## Additional Features to Consider
+
+- **Bulk Actions**: Select multiple items and perform batch operations
+- **Search & Filter**: Powerful search across all sections
+- **Dark Mode**: Toggle between dark and light themes
+- **Audit Trail**: See who did what and when
+- **Backup/Restore**: Export all data as JSON
+- **Settings**: Admin panel customization options
+- **User Management**: (Future) Add/remove other admins with roles
+- **Report Generation**: Generate PDF reports of analytics
+- **Real-time Sync**: Show live updates when students interact with features
+
+---
+
+## Expected Time to Build
+- Base features: 4-6 hours
+- All features + animations: 8-12 hours
+- Polish + testing: 2-3 hours
+
+**Total: 12-18 hours for production-ready admin panel**
+
+---
+
+**This prompt is ready to be used with Claude API or shared with developers. Customize the specific colors, fonts, and features based on your actual requirements.**
